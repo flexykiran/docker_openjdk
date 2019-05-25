@@ -1,0 +1,23 @@
+#Linux as base
+FROM alpine:latest
+
+#Who is maintaining
+MAINTAINER Musudi Kiran musudi.kiran@gmail.com
+
+#Insatall openjdk
+RUN apk update && \
+    apk add openjdk8
+	
+#Set Environment Variables
+ENV JAVA_HOME usr/lib/jvm/java-1.8-openjdk
+ENV PATH $PATH:JAVA_HOME/bin
+
+#Create a work directory
+WORKDIR usr/kiran/workspace/java
+
+#Copy any java file to work directory
+COPY ./DockerWorld.java usr/kiran/workspace/java/DockerWorld.java
+
+#Compile the java file and run
+RUN javac DockerWorld.java
+ENTRYPOINT java DockerWorld
